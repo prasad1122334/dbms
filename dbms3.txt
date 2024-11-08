@@ -1,0 +1,268 @@
+gescoe@gescoe-OptiPlex-3010:~$ mysql -h 192.168.2.232 -u TEB39 -p 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g. 
+Your MySQL connection id is 29 
+mysql> create table student_mark(rollno numeric,name varchar(10),marks numeric,branch 
+varchar(10)); 
+Query OK, 0 rows affected (0.30 sec) 
+mysql> insert into student_mark 
+values(1,'ravi',90,'computer'),(2,'vedika',70,'computer'),(3,'aarush',95,'it'),(4,'jyoti',60,'IT'); 
+Query OK, 4 rows affected (0.04 sec) 
+Records: 4  Duplicates: 0  Warnings: 0 
+mysql> select * from student_mark; 
++--------+--------+-------+----------+ 
+| rollno | name   | marks | branch   | 
++--------+--------+-------+----------+ 
+|   
+1 | ravi   | 
+|   
+|   
+|   
+2 | vedika | 
+3 | aarush | 
+4 | jyoti  | 
+90 | computer | 
+70 | computer | 
+95 | it    
+60 | IT    
++--------+--------+-------+----------+ 
+| 
+| 
+mysql> select * from student_mark where marks>70; 
++--------+--------+-------+----------+ 
+| rollno | name   | marks | branch   | 
++--------+--------+-------+----------+ 
+|   
+1 | ravi   | 
+|   
+3 | aarush | 
+90 | computer | 
+95 | it    
++--------+--------+-------+----------+ 
+2 rows in set (0.00 sec) 
+| 
+mysql> select * from student_mark where marks<70; 
++--------+-------+-------+--------+ 
+| rollno | name  | marks | branch | 
++--------+-------+-------+--------+ 
+|   
+4 | jyoti | 
+60 | IT  | 
++--------+-------+-------+--------+ 
+mysql> update student_mark set name='sachin' where name='ravi'; 
+Query OK, 1 row affected (0.06 sec) 
+Rows matched: 1  Changed: 1  Warnings: 0 
+mysql> delete from student_mark where name='aarush'; 
+Query OK, 1 row affected (0.06 sec) 
+mysql> select * from student_mark; 
++--------+--------+-------+----------+ 
+| rollno | name   | marks | branch   | 
++--------+--------+-------+----------+ 
+|   
+1 | sachin | 
+|   
+|   
+2 | vedika | 
+4 | jyoti  | 
+90 | computer | 
+70 | computer | 
+60 | IT    
++--------+--------+-------+----------+ 
+| 
+mysql> select max(marks) from student_mark; 
++------------+ 
+| max(marks) | 
++------------+ 
+|      
+90 | 
++------------+ 
+1 row in set (0.00 sec) 
+mysql> select max(marks) from student_mark where branch='computer'; 
++------------+ 
+| max(marks) | 
++------------+ 
+|      
+90 | 
++------------+ 
+1 row in set (0.00 sec) 
+mysql> select max(marks) from student_mark where branch='IT'; 
++------------+ 
+| max(marks) | 
++------------+ 
+|      
+60 | 
++------------+ 
+1 row in set (0.00 sec) 
+mysql> select min(marks) from student_mark where branch='IT'; 
++------------+ 
+| min(marks) | 
++------------+ 
+|      
+60 | 
++------------+ 
+1 row in set (0.00 sec) 
+mysql> select min(marks) from student_mark where branch='computer'; 
++------------+ 
+| min(marks) | 
++------------+ 
+|      
+70 | 
++------------+ 
+1 row in set (0.00 sec) 
+mysql> select avg(marks) from student_mark where branch='computer'; 
++------------+ 
+| avg(marks) | 
++------------+ 
+| 
+80.0000 | 
++------------+ 
+1 row in set (0.00 sec) 
+mysql> select avg(marks) from student_mark where branch='IT'; 
++------------+ 
+| avg(marks) | 
++------------+ 
+| 
+60.0000 | 
++------------+ 
+1 row in set (0.00 sec) 
+mysql> select sum(marks) from student_mark where branch='computer'; 
++------------+ 
+| sum(marks) | 
++------------+ 
+|     
+160 | 
++------------+ 
+1 row in set (0.00 sec) 
+mysql> select count(marks) from student_mark where branch='computer'; 
++--------------+ 
+| count(marks) | 
++--------------+ 
+|         
+2 | 
++--------------+ 
+1 row in set (0.00 sec) 
+mysql> select count(marks) from student_mark where branch='IT'; 
++--------------+ 
+| count(marks) | 
++--------------+ 
+|         
+1 | 
++--------------+ 
+JOINS: 
+mysql> create table customer(accno int primary key,name varchar(15),balance numeric(10),city 
+varchar(15)); 
+mysql> insert into customer 
+values(1,'Ram',10000,'Pune'),(2,'Ravi',25000,'Nashik'),(3,'Sachin',30000,'Mumbai');Query OK, 3 
+rows affected (0.06 sec) 
+Records: 3  Duplicates: 0  Warnings: 0 
+mysql> select * from customer; 
++-------+--------+---------+--------+ 
+| accno | name   | balance | city   | 
++-------+--------+---------+--------+ 
+|  
+1 | Ram 
+|  
+|   
+10000 | Pune   | 
+2 | Ravi   |   25000 | Nashik | 
+|  
+3 | Sachin |   30000 | Mumbai | 
++-------+--------+---------+--------+ 
+3 rows in set (0.02 sec) 
+mysql> create table loan(loanno int primary key,name varchar(15),loanamt numeric(10)); 
+mysql> insert into loan values(1,'Ram',10000),(2,'Ravi',50000),(4,'dipak',40000); 
+mysql> select * from loan; 
++--------+-------+---------+ 
+| loanno | name  | loanamt | 
++--------+-------+---------+ 
+|   
+1 | Ram   |   10000 | 
+|   
+|   
+2 | Ravi  |   50000 | 
+4 | dipak |   40000 | 
++--------+-------+---------+ 
+3 rows in set (0.02 sec) 
+mysql> create table cust_info(loanno numeric,address varchar(50)); 
+Query OK, 0 rows affected (0.32 sec) 
+mysql> insert into cust_info values(1,'Nashik'),(3,'Pune'); 
+Query OK, 2 rows affected (0.05 sec) 
+Records: 2  Duplicates: 0  Warnings: 0 
+mysql> select * from cust_info; 
++--------+---------+ 
+| loanno | address | 
++--------+---------+ 
+|   
+1 | Nashik  | 
+|   
+3 | Pune 
++--------+---------+ 
+| 
+2 rows in set (0.00 sec) 
+mysql> select loan.loanno,loan.name,cust_info.address from loan inner join cust_info on 
+loan.loanno=cust_info.loanno; 
++--------+------+---------+ 
+| loanno | name | address | 
++--------+------+---------+ 
+|   
+1 | Ram  | Nashik  | 
++--------+------+---------+ 
+1 row in set (0.00 sec) 
+mysql> select loan.loanno,loan.name,cust_info.address from loan left outer join cust_info on 
+loan.loanno=cust_info.loanno; 
++--------+-------+---------+ 
+| loanno | name  | address | 
++--------+-------+---------+ 
+|   
+1 | Ram   | Nashik  | 
+|   
+|   
+2 | Ravi  | NULL 
+4 | dipak | NULL 
++--------+-------+---------+ 
+3 rows in set (0.00 sec) 
+| 
+| 
+mysql> select loan.loanno,loan.name,cust_info.address from loan right outer join cust_info on 
+loan.loanno=cust_info.loanno; 
++--------+------+---------+ 
+| loanno | name | address | 
++--------+------+---------+ 
+|   
+1 | Ram  | Nashik  | 
+|   
+NULL | NULL | Pune 
++--------+------+---------+ 
+2 rows in set (0.00 sec) 
+| 
+mysql> select loan.loanno,loan.name,cust_info.address from loan right outer join cust_info on 
+loan.loanno=cust_info.loanno; 
++--------+------+---------+ 
+| loanno | name | address | 
++--------+------+---------+ 
+|   
+1 | Ram  | Nashik  | 
+|   
+NULL | NULL | Pune 
++--------+------+---------+ 
+2 rows in set (0.00 sec) 
+| 
+mysql> (select loan.loanno,loan.name,cust_info.address from loan left outer join cust_info on 
+loan.loanno=cust_info.loanno) union (select loan.loanno,loan.name,cust_info.address from loan 
+right outer join cust_info on loan.loanno=cust_info.loanno); 
++--------+-------+---------+ 
+| loanno | name  | address | 
++--------+-------+---------+ 
+|   
+1 | Ram   | Nashik  | 
+|   
+|   
+|   
+2 | Ravi  | NULL 
+4 | dipak | NULL 
+NULL | NULL  | Pune 
++--------+-------+---------+ 
+4 rows in set (0.00 sec) 
+| 
+| 
+|

@@ -1,0 +1,160 @@
+dbms2:
+mysql> create database AS_1; 
+mysql> use AS_1;
+mysql> create table customer(accno int primary key,name varchar(15),balance numeric(10),city 
+varchar(15)); 
+mysql> desc customer; 
+mysql> insert into customer
+values(1,'Ram',10000,'Pune'),(2,'Ravi',25000,'Nashik'),(3,'Sachin',30000,'Mumbai');
+mysql> select * from customer; 
+mysql> create table loan(loanno int primary key,name varchar(15),loanamt numeric(10));
+mysql> desc loan;
+mysql> insert into loan values(1,'Ram',10000),(2,'Ravi',50000),(4,'dipak',40000); 
+mysql> select * from loan; 
+mysql> (select name from customer) union (select name from loan); 
+mysql> select name from customer where name in(select name from loan); 
+mysql> select name from customer where name not in(select name from loan);
+mysql> select name from loan where name not in(select name from customer);
+mysql> select * from customer where balance>20000;
+mysql> select * from customer where balance>20000 and city='Nashik'; 
+mysql> create index myindex on customer(name);
+mysql> show indexes from customer; 
+mysql> create index dataindex on customer(accno,name); 
+mysql> show indexes from customer; 
+mysql> select * from customer order by balance asc;
+mysql> select * from loan order by loanamt desc;
+mysql> select accno,name,balance,balance*0.04*20 as interest from customer;
+
+
+
+dbms3:
+mysql> create table student_mark(rollno numeric,name varchar(10),marks numeric,branch 
+varchar(10)); 
+mysql> insert into student_mark 
+values(1,'ravi',90,'computer'),(2,'vedika',70,'computer'),(3,'aarush',95,'it'),(4,'jyoti',60,'IT');
+mysql> select * from student_mark;
+mysql> select * from student_mark where marks>70;
+mysql> select * from student_mark where marks<70;
+mysql> update student_mark set name='sachin' where name='ravi';
+mysql> delete from student_mark where name='aarush';
+mysql> select * from student_mark;
+mysql> select max(marks) from student_mark;
+mysql> select max(marks) from student_mark where branch='computer';
+mysql> select max(marks) from student_mark where branch='IT';
+mysql> select min(marks) from student_mark where branch='IT';
+mysql> select min(marks) from student_mark where branch='computer';
+mysql> select avg(marks) from student_mark where branch='computer';
+mysql> select avg(marks) from student_mark where branch='IT'; 
+mysql> select sum(marks) from student_mark where branch='computer';
+mysql> select count(marks) from student_mark where branch='computer';
+mysql> select count(marks) from student_mark where branch='IT';
+
+mysql> create table customer(accno int primary key,name varchar(15),balance numeric(10),city varchar(15)); 
+mysql> insert into customer 
+values(1,'Ram',10000,'Pune'),(2,'Ravi',25000,'Nashik'),(3,'Sachin',30000,'Mumbai');
+mysql> select * from customer;
+mysql> create table loan(loanno int primary key,name varchar(15),loanamt numeric(10));
+mysql> insert into loan values(1,'Ram',10000),(2,'Ravi',50000),(4,'dipak',40000);
+mysql> select * from loan;
+mysql> create table cust_info(loanno numeric,address varchar(50)); 
+mysql> insert into cust_info values(1,'Nashik'),(3,'Pune'); 
+mysql> select * from cust_info;
+mysql> select loan.loanno,loan.name,cust_info.address from loan inner join cust_info on 
+loan.loanno=cust_info.loanno;
+mysql> select loan.loanno,loan.name,cust_info.address from loan left outer join cust_info on 
+loan.loanno=cust_info.loanno; 
+mysql> select loan.loanno,loan.name,cust_info.address from loan right outer join cust_info on 
+loan.loanno=cust_info.loanno;
+mysql> select loan.loanno,loan.name,cust_info.address from loan right outer join cust_info on 
+loan.loanno=cust_info.loanno; 
+mysql> (select loan.loanno,loan.name,cust_info.address from loan left outer join cust_info on 
+loan.loanno=cust_info.loanno) union (select loan.loanno,loan.name,cust_info.address from loan 
+right outer join cust_info on loan.loanno=cust_info.loanno); 
+
+
+
+dbms4:
+create database omkar; 
+use omkar; 
+create table Fine(Roll_no int,sDate date,Amt int);
+create table Borrower(Roll_no int,name varchar(20),DateofIssue date,bname 
+varchar(20),status char); 
+desc Borrower; 
+insert into Borrower values(41,omkar,'2024-07
+18','aptitude','I'),(61,'Punam','2024-07-3','gate','I'),(59,'harshali','2024-06-15','reasoning','I'); 
+select * from Borrower; 
+drop procedure if exists p_fine;
+code
+alter table Borrower change  bname book varchar(20);
+DESC Borrower; 
+call p_fine(61,'gate'); 
+call p_fine(41,'aptitude');
+call p_fine(59,'reasoning'); 
+select * from Borrower; 
+select * from Fine;
+
+
+
+dbms5:
+create database omkar; 
+use omkar; 
+create table tbl_area(radius int,area float);
+code
+call Find_Circle_Area();
+
+
+
+dbms6:
+use omkar; 
+create table stud_marks(rollno int,name varchar(30),marks int);
+create table Result(rollno int,name varchar(30),class varchar(30)); 
+insert  into stud_marks
+values(1,'Omkar',1450),(2,'Punam',950),(3,'Harshali',860),(4,'Prachi',600); 
+select * from stud_marks; 
+select * from Result;
+code
+call proc_Grade(); 
+select * from Result; 
+
+
+
+
+dbms7:
+create database TEB_39;
+use TEB_39;
+create table N_RollCall(rollno int,name char(20)); 
+create table O_RollCall(rollno int,name char(20)); 
+insert into O_RollCall 
+values(1,'Omkar'),(2,'Punam'),(3,'Harshali'),(4,'Sayali'); 
+insert into N_RollCall 
+values(1,'Omkar'),(5,'Omkar'),(3,'Harshali'),(6,'Gaurav');
+code
+call mycursor1; 
+select * from N_RollCall;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

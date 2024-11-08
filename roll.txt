@@ -1,0 +1,26 @@
+drop procedure if exists mycursor1;
+delimiter //
+
+create procedure mycursor1()
+begin 
+declare done int default 0;
+declare c_rollno int;
+declare c_name varchar(20);
+declare c_stud cursor for select rollno,name from O_rollno where rollno not in (select rollno from N_rollno );
+declare continue handler for  not found set done = 1;
+
+open c_stud;
+
+read_loop: LOOP
+
+    fetch c_stud into c_rollno,c_name;
+    if done=1 then
+        leave read_loop;
+    end if;
+        insert into N_rollno(rollno,name) values (c_rollno,c_name);
+end loop;
+close c_stud;
+
+end;
+
+delimiter ;

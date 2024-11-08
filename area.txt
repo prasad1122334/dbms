@@ -1,0 +1,25 @@
+drop procedure if exists fca();
+
+delimiter //
+create procedure fca()
+
+BEGIN 
+
+declare r int ;
+declare a float;
+set r=5;
+    loop_lable: LOOP 
+        IF r>9 THEN
+            LEAVE loop_lable;
+        END IF;
+        set a=3.14*r*r;
+        insert into tbl_area(radius,area) values (r,a);
+        select a as Area;
+        set r = r+1;
+        END LOOP;
+END;
+
+//
+
+delimiter ;
+     

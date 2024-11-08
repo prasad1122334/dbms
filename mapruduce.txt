@@ -1,0 +1,12 @@
+db.record.mapReduce(
+    function() {
+        emit(this.Branch, this.Marks);
+    },
+    function(key, values) {
+        return Array.sum(values);
+    },
+    {
+        query: { Division: "B" },
+        out: "Total_marks"
+    }
+);

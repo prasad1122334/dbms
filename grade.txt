@@ -1,0 +1,50 @@
+drop procedure if exists proc_Grade;
+
+
+delimiter //
+
+create procedure proc_Grade()
+begin 
+DECLARE done int default 0;
+declare s_marks int;
+declare s_rollno int;
+declare s_name varchar(20);
+declare s_class varchar(20);
+
+declare s_student cursor for select rollno,name,marks from stud_mark;
+
+declare continue handler for not found set done = 1;
+
+open s_student;
+
+read_loop:LOOP
+
+    fetch s_student into s_rollno,s_name,s_marks;
+
+    if done=1 then
+    leave read_loop;
+    end if;
+
+    if(s_marks<=1500 and s_marks>=990)then
+    set s_class = "Distinction";
+    
+    elseif(s_marks<=989 and s_marks>=900)then
+    set s_class = "first class";
+    
+    elseif(s_marks<=899 and s_marks>825)then
+    set s_class ="higher secoond class";
+
+    else 
+    set s_class = "pass";
+
+    end if;
+    insert into Result(rollno,name,class)values(s_rollno,s_name,s_class);
+
+    END LOOP;
+
+    close s_student;
+    end;
+
+    //
+    delimiter ;
+
