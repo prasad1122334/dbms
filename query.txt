@@ -136,22 +136,53 @@ select * from N_RollCall;
 
 
 
+dbms9:
+use TEB_39; 
+db.createCollection("Student");
+db.Student.insert({"Rollno":1,"Name":"Saee","Branch":"Computer","Marks":95});
+db.Student.insert({"Rollno":2,"Name":"Sayali","Branch":"IT","Marks":75});
+db.Student.insert({"Rollno":3,"Name":"Gauri","Branch":"Mechanical","Marks":82}); 
+db.Student.insert({"Rollno":4,"Name":"Jayesh","Branch":"Computer","Marks":60}); 
+db.Student.find().pretty();
+db.Student.update({"Name":"Jayesh"},{$set:{"Name":"Shau"}});
+db.Student.find().pretty();
+db.Student.remove({"Rollno":3});
+db.Student.find().pretty();
+db.Student.save({"_id" : 
+ObjectId("66c5c0a1f69f7a64bf57360e"),"Branch":"AIDS","Marks":80}); 
+db.Student.find().pretty();
+db.Student.find({$and:[{"Branch":"Computer"},{"Marks":95}]}).preety();
+db.Student.find({$or:[{"Branch":"Computer"},{"Marks":75}]}).preety();
+db.Student.find({$nor:[{"Branch":"Computer"},{"Marks":75}]}).preety();
 
 
 
 
 
+dbms10:
+use TEB_39; 
+db.Student.insert({"Rollno":4,"Name":"Gauri","Branch":"Computer","Marks":85}); 
+db.Student.find().pretty(); 
+db.Student.aggregate([{$group:{_id:"$Branch",Total_marks:{$sum:"$Marks"}}}]);
+db.Student.aggregate([{$group:{_id:"$Branch",Maximum_marks:{$max:"$Marks"}}}]);
+db.Student.aggregate([{$group:{_id:"$Branch",Minimum_marks:{$min:"$Marks"}}}]);
+db.Student.aggregate([{$group:{_id:"$Branch",Average_marks:{$avg:"$Marks"}}}]);
+db.Student.aggregate([{$group:{_id:"$Branch",First_marks:{$first:"$Marks"}}}]);
+db.Student.aggregate([{$group:{_id:"$Branch",Last_marks:{$last:"$Marks"}}}]);
 
 
 
 
-
-
-
-
-
-
-
+dbms11:
+use TEB_39; 
+db.Record.insert({"Branch":"Computer","Marks":950,"Division":"B"}); 
+db.Record.insert({"Branch":"Computer","Marks":700,"Division":"B"}); 
+db.Record.insert({"Branch":"AIDS","Marks":820,"Division":"A"});
+db.Record.insert({"Branch":"AIDS","Marks":650,"Division":"B"}); 
+db.Record.find().pretty();
+db.Record.mapReduce(function(){emit(this.Branch, this.Marks);}, 
+show collections; 
+db.Total_marks.find().pretty();
 
 
 
